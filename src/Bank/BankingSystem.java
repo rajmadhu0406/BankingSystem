@@ -61,9 +61,9 @@ public class BankingSystem extends Customer
 			String pass = sc.next();
 			pass = pass.trim();
 		
-			System.out.println("\n\n rajs pass :=====" + pass + "===\n\n");
-			System.out.println("\n\n sysy pass acc :=====" + c.getPass() + "===\n\n");
-			System.out.println("\n\n system name :=====" + c.getName() + "===\n\n");
+			//System.out.println("\n\n rajs pass :=====" + pass + "===\n\n");
+			//System.out.println("\n\n sysy pass acc :=====" + c.getPass() + "===\n\n");
+			//System.out.println("\n\n system name :=====" + c.getName() + "===\n\n");
 			
 			if( (c.getPass() ).equals(pass))
 			{

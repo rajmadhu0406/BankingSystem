@@ -86,7 +86,8 @@ public class Balance {
 		}
 	}
 	
-	public void transfer(Customer c2, int x)
+	
+	public void transfer(Customer c2, double x)
 	{
 		bal -= x;
 		String s1 =  dtf.format(now) + " --> " + x + " Amount transfered to Account Number : " + c2.getAccNo();
@@ -94,9 +95,10 @@ public class Balance {
 		//c2.acceptTransfer(this,x);
 	}
 	
-	public void acceptTransfer(Customer c1, int x)
+	public void acceptTransfer(int accountNo, double x)
 	{
-		String s2 = dtf.format(now) + " --> " + x + " Amount received from Account Number : " + c1.getAccNo();
+		bal += x;
+		String s2 = dtf.format(now) + " --> " + x + " Amount received from Account Number : " + accountNo;
 		history.add(s2);
 	}
 	

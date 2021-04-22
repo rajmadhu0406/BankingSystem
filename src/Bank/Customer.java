@@ -2,7 +2,8 @@ package Bank;
 
 import java.util.*;
 
-public class Customer extends Balance{
+public class Customer extends Balance implements Runnable
+{
 	
 	private String name, gender, MNo, pass;
 	
@@ -13,6 +14,12 @@ public class Customer extends Balance{
 	Balance b = new Balance();
 	
 	Scanner sc = new Scanner(System.in);
+	
+	//for multithreading
+	private Customer C2;
+	private double Tmoney;
+	private int accountNo;
+
 
 	//AccNo, name , age, gender , mobile, AccType, password
 	
@@ -114,17 +121,19 @@ public class Customer extends Balance{
 	{
 		return AccNo;
 	}
-	
+	public double getBalance()
+	{
+		return b.getBal();
+	}	
 	public static int getTotalAcc()
 	{
 		return ID;
-	}
-	
+	}	
 	public String getPass()
 	{
 		return pass;
 	}
-	//
+
 	public void showInfo()
     {
 		
@@ -132,8 +141,17 @@ public class Customer extends Balance{
 	    System.out.println("GENDER : "+ gender);
 	    System.out.println("MOBILE NO. : "+MNo);
 	    System.out.println("ACCOUNT NO. : "+ AccNo);
+	    if(AccType == 1)
+	    {
+	    	 System.out.println("TYPE OF ACCOUNT : Savings Account");
+	    }
+	    else if(AccType == 2)
+	    {
+	    	 System.out.println("TYPE OF ACCOUNT : Current Account");
+	    }
+	    
 	    System.out.println("AGE : "+ age );
-	    System.out.println("TYPE OF ACCOUNT : "+ AccType);
+	   
 	    System.out.println("\n");
 	    
     }
@@ -159,22 +177,30 @@ public class Customer extends Balance{
 		b.showHistory();
 	}
 	
-	public void transfer(Customer c2, int x)
+	public void transfer(Customer c2, double x)
 	{
+		//run() 
+		Thread th = new Thread(new Customer(c2,x,AccNo));
+		th.start();
 		b.transfer(c2,x);
-		c2.acceptTransfer(this, x);
-	}
-	
-	public void acceptTransfer(Customer c2, int x)
+		//c2.acceptTransfer(this, x);
+	}	
+	public Customer(Customer cc, double xx, int acc)
 	{
-		b.acceptTransfer(c2, x);
+		C2  = cc;
+		Tmoney = xx;
+		accountNo = acc;
 	}
-	
-	
-	public double getBalance()
+	public void run()
 	{
-		return b.getBal();
+		System.out.println("\n\n ..........Thread.........\n\n");
+		C2.acceptTransfer(accountNo, Tmoney);
 	}
+	public void acceptTransfer(int accountNo, double x)//run
+	{
+		b.acceptTransfer(accountNo, x);
+	}
+	
 	
 	
 	public static void main(String arg[])
