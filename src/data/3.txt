@@ -1,3 +1,0 @@
-3,2,manav,21,M,238742938457,manav
-2021/04/23 21:48:42 --> 50.0 Amount received from Account Number : 2
-2021/04/23 21:48:42 --> 500.0 Amount has been deposited in your account.

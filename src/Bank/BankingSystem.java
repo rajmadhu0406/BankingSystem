@@ -7,15 +7,18 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import jdk.vm.ci.code.site.ExceptionHandler;
 
 public class BankingSystem extends Customer
 {
+
 	
 	private HashMap<Integer,Customer> MAP = new HashMap<Integer,Customer>();
 	private String FileLoc = "C:\\Users\\rajma\\Documents\\Eclipse Java\\BankingSystem\\src\\data\\";
+	private LoanCalculator LC = new LoanCalculator();
 	
 
 	//ArrayList<Customer> TC = new ArrayList<Customer>(); //total customer
@@ -59,7 +62,14 @@ public class BankingSystem extends Customer
 	public void Login()
 	{
 		System.out.print("Enter your Account Numner : ");
-		int acc = sc.nextInt();
+		
+		int acc = 0;
+		try {
+			acc = sc.nextInt();
+		} catch (InputMismatchException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		
 		if(MAP.containsKey(acc))
@@ -93,7 +103,10 @@ public class BankingSystem extends Customer
 								System.out.println("3) WITHDRAW MONEY");
 								System.out.println("4) SHOW TRANSACTION HISTORY");
 								System.out.println("5) TRANSFER MONEY");
-								System.out.println("6) EXIT\n");
+								System.out.println("6) APPLY FOR CHEQUE BOOK");
+								System.out.println("7) RECHARGE FASTAG");
+								System.out.println("8) LOAN CALCULATOR");
+								System.out.println("9) EXIT\n");
 								
 								System.out.print("ENTER YOUR CHOICE : ");
 								int cc = sc.nextInt();
@@ -123,11 +136,6 @@ public class BankingSystem extends Customer
 						        	c.showHistory();
 						        	break;
 						        
-						        case 6:
-						        	//exit
-						        	l = false;
-						        	break;
-						        	
 						        case 5:
 						        	
 						        	System.out.print("Enter Account Number of the transferee : "); 
@@ -158,6 +166,28 @@ public class BankingSystem extends Customer
 						        	
 						        	break;
 						        
+						        case 6:
+						        	System.out.print("Enter Cheque Book price : ");
+						        	double cb = sc.nextDouble();
+						        	c.ChequeBook(cb);
+						        	break;
+						        	
+						        case 7:
+						        	//to do
+						        	System.out.print("Enter Recharge amount : ");
+						        	double r = sc.nextDouble();
+						        	c.RechargeFastag(r);
+						        	break;
+						        	
+						        case 8:
+						        	LC.calc();
+						        	break;
+						        	
+						        case 9:
+						        	//exit
+						        	l = false;
+						        	break;
+						        	
 						        default:
 						        	System.out.println("ERROR : please check your input!!!\n");
 						        	break;
@@ -271,7 +301,7 @@ public class BankingSystem extends Customer
 		    	}
 		    	else
 		    	{
-		    		System.out.println("\n\n file name in bfw : " + fileName + "\n");
+		    		//System.out.println("\n\n file name in bfw : " + fileName + "\n");
 			    	Bfr = new FileReader(FileLoc + fileName);
 					Bbr = new BufferedReader(Bfr);
 					String balance = Bbr.readLine();
@@ -297,6 +327,7 @@ public class BankingSystem extends Customer
 	public static void main(String args[])
 	{
 		BankingSystem BB = new BankingSystem();
+		
 		BB.LoadCustomer();
 		BB.Start();
 	}

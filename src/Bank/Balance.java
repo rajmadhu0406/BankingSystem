@@ -179,6 +179,22 @@ public class Balance {
 		//writeHistory(s2);
 	}
 	
+	public String chequeBook(double x)
+	{
+		bal -= x;
+		String s = dtf.format(now) + " --> " + x + " Amount deducted for cheque book.";
+		history.add(s);
+		
+		return s;
+	}
+	public String rechargeFastag(double x)
+	{
+		bal -= x;
+		String s = dtf.format(now) + " --> " + x + " Amount deducted for recharge of fastag.";
+		history.add(s);
+		return s;
+	}
+	
 	/*
 	public static void main(String args[])
 	{

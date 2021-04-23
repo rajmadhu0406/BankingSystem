@@ -212,7 +212,7 @@ public class Customer extends Balance implements Runnable
 		Thread th = new Thread(new Customer(c2,x,AccNo));
 		th.start();
 		String s = b.transfer(c2,x);
-		System.out.println("\n\n writing history from transfer in cus\n\n");
+		//System.out.println("\n\n writing history from transfer in cus\n\n");
 		b.writeHistory(s, AccNo);
 		b.writeBal(AccNo);
 		
@@ -227,7 +227,7 @@ public class Customer extends Balance implements Runnable
 	}
 	public void run()
 	{
-		System.out.println("\n\n ..........Thread.........\n\n");
+		//System.out.println("\n\n ..........Thread.........\n\n");
 		C2.AcceptTransfer(accountNo, Tmoney);
 	}
 	
@@ -248,6 +248,23 @@ public class Customer extends Balance implements Runnable
 	{
 		b.setBal(x);
 	}
+	
+	public void ChequeBook(double x)
+	{
+		String s = b.chequeBook(x);
+		b.writeHistory(s, AccNo);
+		b.writeBal(AccNo);
+	}
+	public void RechargeFastag(double x)
+	{
+		String s = b.rechargeFastag(x);
+		b.writeHistory(s, AccNo);
+		b.writeBal(AccNo);
+	}
+	
+	
+	
+	//////
 	
 	public static void main(String arg[])
 	{
