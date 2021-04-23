@@ -22,6 +22,17 @@ public class Customer extends Balance implements Runnable
 
 
 	//AccNo, name , age, gender , mobile, AccType, password
+	public Customer(int accno, int acctype, String name, int age, String gender, String mobile, String password)
+	{
+		ID++;
+		AccNo = accno;
+		AccType = acctype;
+		this.name = name;
+		this.age = age;
+		this.gender = gender;
+		MNo = mobile;
+		pass = password;
+	}
 	
 	public Customer()
 	{
@@ -101,6 +112,11 @@ public class Customer extends Balance implements Runnable
 		System.out.print("Your Account ID is : " + AccNo + "\n\n");
 	}
 	
+	public int getAccType()
+	{
+		return AccType;
+	}
+	
 	public String getName()
 	{
 		return name;
@@ -158,18 +174,31 @@ public class Customer extends Balance implements Runnable
 	
 	//
 	
+	//public writeHistory
+	
 	public void Deposit()
 	{
 		System.out.print("Enter Amount to be deposited : ");
 		double m = sc.nextInt(); 
-		b.Deposit(m);
+		//String s =  dtf.format(now) + " --> " + m + " Amount has been deposited in your account.";
+		//b.writeHistory(s, AccNo);
+		String s = b.Deposit(m);
+		b.writeHistory(s, AccNo);
+		b.writeBal(AccNo);
 	}
 	
 	public void withdraw()
 	{
 		System.out.print("Enter Amount to be withdrawed : ");
 		double m = sc.nextInt(); 
-		b.withdraw(m);
+		
+		String s = b.withdraw(m);
+		if(!s.equals("") && s != null)
+		{
+			b.writeHistory(s, AccNo);
+			b.writeBal(AccNo);
+			
+		}
 	}
 	
 	public void showHistory()
@@ -177,12 +206,17 @@ public class Customer extends Balance implements Runnable
 		b.showHistory();
 	}
 	
-	public void transfer(Customer c2, double x)
+	public void Transfer(Customer c2, double x)
 	{
 		//run() 
 		Thread th = new Thread(new Customer(c2,x,AccNo));
 		th.start();
-		b.transfer(c2,x);
+		String s = b.transfer(c2,x);
+		System.out.println("\n\n writing history from transfer in cus\n\n");
+		b.writeHistory(s, AccNo);
+		b.writeBal(AccNo);
+		
+		
 		//c2.acceptTransfer(this, x);
 	}	
 	public Customer(Customer cc, double xx, int acc)
@@ -194,14 +228,26 @@ public class Customer extends Balance implements Runnable
 	public void run()
 	{
 		System.out.println("\n\n ..........Thread.........\n\n");
-		C2.acceptTransfer(accountNo, Tmoney);
+		C2.AcceptTransfer(accountNo, Tmoney);
 	}
-	public void acceptTransfer(int accountNo, double x)//run
+	
+	public void AcceptTransfer(int accountNo, double x)//run
 	{
-		b.acceptTransfer(accountNo, x);
+		String s = b.acceptTransfer(accountNo, x);
+		System.out.println("\n\n return s2 : " + s + "\n\n");
+		b.writeHistory(s, AccNo);
+		b.writeBal(AccNo);
 	}
 	
+	public void ReadHistory()
+	{
+		b.readHistory(AccNo);
+	}
 	
+	public void setBal(double x)
+	{
+		b.setBal(x);
+	}
 	
 	public static void main(String arg[])
 	{

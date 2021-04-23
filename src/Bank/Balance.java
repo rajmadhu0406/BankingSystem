@@ -1,11 +1,17 @@
 package Bank;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Balance {
+	
+	private String FileLoc = "C:\\Users\\rajma\\Documents\\Eclipse Java\\BankingSystem\\src\\data\\";
 	
 	private double bal;
 	private double fasTag = 0;
@@ -15,34 +21,96 @@ public class Balance {
 	public DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
 	public LocalDateTime now = LocalDateTime.now();  
 	
-	
+	//private Customer c;
 	
 	
 	//constructor overloading
+	
+	public void writeBal(int acc)
+	{
+		try
+		{
+			
+			FileWriter fw =new FileWriter(FileLoc + acc + "_bal.txt");
+			fw.write(String.valueOf(bal));
+			fw.close();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	
+	public void readHistory(int acc)
+	{
+		try
+		{
+			FileReader fr =new FileReader(FileLoc + acc + ".txt");
+			BufferedReader br = new BufferedReader(fr);
+			String line;
+			br.readLine();
+			while((line = br.readLine()) != null)
+			{
+				history.add(line);
+			}
+			fr.close();
+			br.close();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	
+	public void writeHistory(String s, int acc)
+	{
+		try
+		{
+			FileWriter fw =new FileWriter(FileLoc + acc + ".txt", true);
+			fw.write(s + "\n");
+			fw.close();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
 	
 	public Balance()
 	{
 		bal = 0;
 	}
+	
+
 	public Balance(double x)
 	{
 		bal = x;
 		String s = dtf.format(now) + " --> " + x + " Amount has been deposited in your account.";
 		history.add(s);
+		//writeHistory(s);
 	}
 	
 	public double getBal()
 	{
 		return bal;
 	}
+	public void setBal(double x)
+	{
+		bal = x;
+	}
 	
-	public void Deposit(double x)
+	public String Deposit(double x)
 	{
 		bal += x;
 		System.out.println(x + "  Amount Deposited!\n");
 		
 		String s =  dtf.format(now) + " --> " + x + " Amount has been deposited in your account.";
 		history.add(s);
+		
+		return s;
+		//writeHistory(s);
 	}
 	
 	public void showHistory()
@@ -58,11 +126,12 @@ public class Balance {
 	}
 	
 	
-	public void withdraw(double x)
+	public String withdraw(double x)
 	{
 		if(x > bal)
 		{
 			System.out.println("Error: Sorry you cannot withdraw an amount larger than your balance!!!");
+			return "";
 		}
 		else
 		{
@@ -81,25 +150,33 @@ public class Balance {
 			System.out.println(x + " Amount has been deducted from your account at " + dtf.format(now) );
 			
 			//history
-			history.add(dtf.format(now) + " --> " + x + " Amount deducted for : " + s);
-			
+			String ss = dtf.format(now) + " --> " + x + " Amount deducted for : " + s;
+			history.add(ss);
+			//writeHistory(dtf.format(now) + " --> " + x + " Amount deducted for : " + s);
+			return ss;
 		}
 	}
 	
 	
-	public void transfer(Customer c2, double x)
+	public String transfer(Customer c2, double x)
 	{
 		bal -= x;
 		String s1 =  dtf.format(now) + " --> " + x + " Amount transfered to Account Number : " + c2.getAccNo();
 		history.add(s1);
+		
+		return s1;
+		//writeHistory(s1);
 		//c2.acceptTransfer(this,x);
 	}
 	
-	public void acceptTransfer(int accountNo, double x)
+	public String acceptTransfer(int accountNo, double x)
 	{
 		bal += x;
 		String s2 = dtf.format(now) + " --> " + x + " Amount received from Account Number : " + accountNo;
 		history.add(s2);
+		
+		return s2;
+		//writeHistory(s2);
 	}
 	
 	/*

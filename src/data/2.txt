@@ -1,0 +1,4 @@
+2,1,raj,19,M,94298954,raj
+2021/04/23 21:48:29 --> 5000.0 Amount has been deposited in your account.
+2021/04/23 21:48:29 --> 50.0 Amount deducted for : ll
+2021/04/23 21:48:29 --> 50.0 Amount transfered to Account Number : 3

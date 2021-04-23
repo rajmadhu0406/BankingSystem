@@ -1,12 +1,21 @@
 package Bank;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
+
+import jdk.vm.ci.code.site.ExceptionHandler;
 
 public class BankingSystem extends Customer
 {
 	
 	private HashMap<Integer,Customer> MAP = new HashMap<Integer,Customer>();
+	private String FileLoc = "C:\\Users\\rajma\\Documents\\Eclipse Java\\BankingSystem\\src\\data\\";
 	
 
 	//ArrayList<Customer> TC = new ArrayList<Customer>(); //total customer
@@ -123,7 +132,7 @@ public class BankingSystem extends Customer
 						        	
 						        	System.out.print("Enter Account Number of the transferee : "); 
 						        	int a2 = sc.nextInt();
-						        	System.out.print("Enter Account to be transfered : "); 
+						        	System.out.print("Enter Amount to be transfered : "); 
 						        	int x = sc.nextInt();
 						        	
 						        	double bb = c.getBalance();
@@ -136,7 +145,7 @@ public class BankingSystem extends Customer
 						        		if(MAP.containsKey(a2))
 						        		{
 						        			Customer c2 = MAP.get(a2);
-						        			c.transfer(c2, x);
+						        			c.Transfer(c2, x);
 						      
 						        		}
 						        		else
@@ -171,21 +180,124 @@ public class BankingSystem extends Customer
 	
 	}
 	
-	public void createAccount()
+	public void createAccount() 
 	{
 		Customer c = new Customer();
 		c.addCustomer();
+		FileWriter fw = null;
+		FileWriter bfw = null;
+		
+		
+		
+		try {
+			File file = new File(FileLoc + c.getAccNo() + ".txt");
+			File fbal = new File(FileLoc + c.getAccNo() + "_bal.txt");
+			boolean flag = file.createNewFile();	
+			boolean Bflag = fbal.createNewFile();
+			if(flag == false || Bflag == false)
+			{
+				System.out.println("flag false, file not created");
+			}
+			fw = new FileWriter(FileLoc + c.getAccNo() + ".txt",true);
+			String cus = c.getAccNo() + "," + c.getAccType() + "," + c.getName().trim() + "," + c.getAge() + "," + c.getGender().trim() + "," + c.getMno().trim() + "," + c.getPass().trim() + "\n"; 
+			fw.write(cus);
+			
+			bfw = new FileWriter(FileLoc + c.getAccNo() + "_bal.txt");
+			bfw.write("0.0");
+			bfw.close();
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally {
+			if(fw != null)
+			{
+				try {
+					fw.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+	
+		
 		MAP.put(c.getAccNo(), c);
-		
-		c.showInfo();
-		
+		//c.showInfo();
 		//TC.add(c);
+	}
+	
+	public void LoadCustomer() 
+	{
+		 
+		Customer c = null;
+		FileReader fr = null;
+		BufferedReader br = null;
+		
+		FileReader Bfr = null;
+		BufferedReader Bbr = null;
+		
+		
+		try {
+			 File dir = new File(FileLoc);
+			 String[] fileNames = dir.list();
+			 
+			 
+		    String line;  
+		   
+		    for (String fileName : fileNames) {
+		    	if(!fileName.contains("bal"))
+		    	{
+			    	fr = new FileReader(FileLoc + fileName);
+					br = new BufferedReader(fr);
+					
+					    line = br.readLine();
+				    
+				    	String[] ss = line.split(",");
+				    	
+				    	int accno = (int)Integer.parseInt(ss[0].trim());
+				    	int acctype = (int)Integer.parseInt(ss[1].trim());
+				    	String name = ss[2].trim();
+				    	int age = (int)Integer.parseInt(ss[3].trim());
+				    	String gender = ss[4].trim();
+				    	String mobile = ss[5].trim();
+				    	String password = ss[6].trim();
+				    	
+				    	c = new Customer(accno, acctype, name, age, gender, mobile, password);
+				    	MAP.put(accno, c);
+				    	
+				    	c.ReadHistory();  
+		    	}
+		    	else
+		    	{
+		    		System.out.println("\n\n file name in bfw : " + fileName + "\n");
+			    	Bfr = new FileReader(FileLoc + fileName);
+					Bbr = new BufferedReader(Bfr);
+					String balance = Bbr.readLine();
+					//balance.trim();
+					double b = Double.parseDouble(balance);
+					c.setBal(b);
+					
+					Bfr.close();
+					Bbr.close();
+		    	}
+		    }
+		    
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	
+		
 	}
 	
 	
 	public static void main(String args[])
 	{
 		BankingSystem BB = new BankingSystem();
+		BB.LoadCustomer();
 		BB.Start();
 	}
 	
