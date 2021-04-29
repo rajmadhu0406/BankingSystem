@@ -1,6 +1,0 @@
-4,1,raj,19,m,12345,raj
-2021/04/23 23:00:23 --> 10000.0 Amount has been deposited in your account.
-2021/04/23 23:00:23 --> 100.0 Amount deducted for : flipkart
-2021/04/23 23:00:23 --> 2500.0 Amount transfered to Account Number : 6
-2021/04/23 23:00:23 --> 200.0 Amount deducted for cheque book.
-2021/04/23 23:07:59 --> 50.0 Amount deducted for recharge of fastag.

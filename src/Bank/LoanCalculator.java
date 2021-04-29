@@ -8,7 +8,7 @@ public class LoanCalculator {
     	
         Scanner input = new Scanner(System.in);
 
-        System.out.println("***************");
+        System.out.println("************************************************************\n");
         System.out.print("Enter the amount for loan : ");
         int amount = input.nextInt();
 
@@ -22,15 +22,17 @@ public class LoanCalculator {
         double totalPayment = (amount + interestamount);
         double monthlypayment =totalPayment /(12*timerate);
         
-        System.out.println("***************");
+        System.out.println("\n************************************************************\n");
         System.out.println("Your amount for loan is " + amount);
         System.out.println("Your rate of interest  is " + RateofInterest);
         System.out.println("Time period is " + timerate +" years");
         
+        System.out.println("\n************************************************************\n");
+        
         System.out.println("Your interest amount for the loan is " + interestamount);
         System.out.println("Your monthly payment for the loan is " + monthlypayment);
         System.out.println("Your total payment after the interest rate is "+ totalPayment);
-        System.out.println("***************");
+        System.out.println("\n************************************************************\n");
 
     }
 

@@ -1,2 +1,0 @@
-6,1,khush,92,M,382482,khush
-2021/04/23 23:01:45 --> 2500.0 Amount received from Account Number : 4

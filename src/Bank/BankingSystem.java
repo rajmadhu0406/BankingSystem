@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import jdk.vm.ci.code.site.ExceptionHandler;
+//import jdk.vm.ci.code.site.ExceptionHandler;
 
 public class BankingSystem extends Customer
 {
@@ -29,13 +29,15 @@ public class BankingSystem extends Customer
 		boolean flag = true;
 		while(flag)
 		{
-			 System.out.println("-----------------------------------------MAIN MENU----------------------------------------- ");
-		     System.out.println("1) CREATE NEW ACCOUNT");
-		     System.out.println("2) LOGIN");
-		     System.out.println("3) EXIT\n");
-		     
+			 System.out.println("---------------------------------------------------------------------------------MAIN MENU------------------------------------------------------------------------------------------------ ");
+		     System.out.println("\n(1) CREATE NEW ACCOUNT\n");
+		     System.out.println("(2) LOGIN\n");
+		     System.out.println("(3) EXIT\n");
+		
 			System.out.print("Enter Your choice :  ");
-			int choice = sc.nextInt();
+			
+			int	choice = sc.nextInt();
+			
 			
 			System.out.println("\n");
 			
@@ -51,7 +53,7 @@ public class BankingSystem extends Customer
 					flag = false;
 					break;
 				default :
-					System.out.println("Wrong choice!!!");
+					System.out.println("ERROR Please choose from above options only!");
 					break;
 			}
 				
@@ -61,13 +63,16 @@ public class BankingSystem extends Customer
 	
 	public void Login()
 	{
+		System.out.println("\n----------------------------------------------------------------------------------------------------------------------------");
+		System.out.println("----------------------------------------------------------------------------------------------------------------------------\n");
+		
 		System.out.print("Enter your Account Numner : ");
 		
 		int acc = 0;
 		try {
 			acc = sc.nextInt();
 		} catch (InputMismatchException e) {
-			// TODO Auto-generated catch block
+			System.out.println("Error!!!");
 			e.printStackTrace();
 		}
 		
@@ -84,29 +89,26 @@ public class BankingSystem extends Customer
 			//System.out.println("\n\n sysy pass acc :=====" + c.getPass() + "===\n\n");
 			//System.out.println("\n\n system name :=====" + c.getName() + "===\n\n");
 			
+			System.out.println("----------------------------------------------------------------------------------------------------------------------------");
+			System.out.println("----------------------------------------------------------------------------------------------------------------------------");
+			
 			if( (c.getPass() ).equals(pass))
 			{
-				//boolean ff = true;
-				
-				
-				
-							//enter another switch while loop
-							
-				
+
 							boolean l = true;
 							while(l) {
 								
 								//
 								
-								System.out.println("1) SHOW INFO");
-								System.out.println("2) DEPOSIT MONEY");
-								System.out.println("3) WITHDRAW MONEY");
-								System.out.println("4) SHOW TRANSACTION HISTORY");
-								System.out.println("5) TRANSFER MONEY");
-								System.out.println("6) APPLY FOR CHEQUE BOOK");
-								System.out.println("7) RECHARGE FASTAG");
-								System.out.println("8) LOAN CALCULATOR");
-								System.out.println("9) EXIT\n");
+								System.out.println("\n1) ==>  SHOW INFO");
+								System.out.println("\n2) ==>  DEPOSIT MONEY");
+								System.out.println("\n3) ==>  WITHDRAW MONEY");
+								System.out.println("\n4) ==>  SHOW TRANSACTION HISTORY");
+								System.out.println("\n5) ==>  TRANSFER MONEY");
+								System.out.println("\n6) ==>  APPLY FOR CHEQUE BOOK");
+								System.out.println("\n7) ==>  RECHARGE FASTAG");
+								System.out.println("\n8) ==>  LOAN CALCULATOR");
+								System.out.println("\n9) ==>  EXIT\n");
 								
 								System.out.print("ENTER YOUR CHOICE : ");
 								int cc = sc.nextInt();
@@ -138,15 +140,15 @@ public class BankingSystem extends Customer
 						        
 						        case 5:
 						        	
-						        	System.out.print("Enter Account Number of the transferee : "); 
+						        	System.out.print("Enter Account Number of the transferee :  "); 
 						        	int a2 = sc.nextInt();
-						        	System.out.print("Enter Amount to be transfered : "); 
+						        	System.out.print("\nEnter Amount to be transfered : "); 
 						        	int x = sc.nextInt();
-						        	
+						        	System.out.println();
 						        	double bb = c.getBalance();
 						        	if(x > bb)	
 						        	{
-							        	System.out.println("Insufficient funds!!!"); 
+							        	System.out.println("Insufficient funds!!!\n"); 
 						        	}
 						        	else
 						        	{
@@ -158,7 +160,7 @@ public class BankingSystem extends Customer
 						        		}
 						        		else
 						        		{
-						        			System.out.println("No account with this number found");
+						        			System.out.println("No account with this number found\n");
 						        		}
 						        		
 						        	}
@@ -167,16 +169,18 @@ public class BankingSystem extends Customer
 						        	break;
 						        
 						        case 6:
-						        	System.out.print("Enter Cheque Book price : ");
+						        	System.out.print("\nEnter Cheque Book price : ");
 						        	double cb = sc.nextDouble();
 						        	c.ChequeBook(cb);
+						        	System.out.println();
 						        	break;
 						        	
 						        case 7:
 						        	//to do
-						        	System.out.print("Enter Recharge amount : ");
+						        	System.out.print("\nEnter Recharge amount : ");
 						        	double r = sc.nextDouble();
 						        	c.RechargeFastag(r);
+						        	System.out.println();
 						        	break;
 						        	
 						        case 8:
@@ -189,7 +193,7 @@ public class BankingSystem extends Customer
 						        	break;
 						        	
 						        default:
-						        	System.out.println("ERROR : please check your input!!!\n");
+						        	System.out.println("\nERROR : please choose from above options only!!!\n");
 						        	break;
 						        	
 								}//switch
@@ -200,12 +204,12 @@ public class BankingSystem extends Customer
 			}
 			else
 			{
-				System.out.println("Password invalid!!!!");
+				System.out.println("\nPassword invalid!!!!");
 			}
 		}
 		else
 		{
-			System.out.println("No account number found!!!");
+			System.out.println("\nNo account number found!!!");
 		}
 	
 	}
@@ -237,7 +241,6 @@ public class BankingSystem extends Customer
 			bfw.close();
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		finally {
@@ -246,7 +249,6 @@ public class BankingSystem extends Customer
 				try {
 					fw.close();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
