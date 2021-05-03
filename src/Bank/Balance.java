@@ -156,7 +156,7 @@ public class Balance {
 		String s =  dtf.format(now) + " --> " + x + " Amount has been deposited in your account.";
 		history.add(s);
 		
-		System.out.println("****************************************************************************************************************************");
+		//System.out.println("****************************************************************************************************************************");
 		
 		return s;
 	}
@@ -190,12 +190,10 @@ public class Balance {
 		{
 			bal -= x;
 			
-			System.out.println("----------------------------------------------------------------------------------------------------------------------------");
-			System.out.println("----------------------------------------------------------------------------------------------------------------------------\n");
+			//System.out.println("----------------------------------------------------------------------------------------------------------------------------");
+			//System.out.println("----------------------------------------------------------------------------------------------------------------------------\n");
 			
-			System.out.print("Enter a note for tracking your expenditures : \n");
-			
-			
+			System.out.print("Enter a note for tracking your expenditures : ");
 			Scanner sc = new Scanner(System.in);
 			
 			String s = sc.next();
@@ -209,8 +207,8 @@ public class Balance {
 			String ss = dtf.format(now) + " --> " + x + " Amount deducted for : " + s;
 			history.add(ss);
 			
-			System.out.println("\n----------------------------------------------------------------------------------------------------------------------------");
-			System.out.println("----------------------------------------------------------------------------------------------------------------------------");
+			//System.out.println("\n----------------------------------------------------------------------------------------------------------------------------");
+			//System.out.println("----------------------------------------------------------------------------------------------------------------------------");
 			
 			//returning transaction string
 			return ss;
@@ -241,21 +239,39 @@ public class Balance {
 	//Method to apply for cheque book
 	public String chequeBook(double x)
 	{
-		bal -= x;
-		String s = dtf.format(now) + " --> " + x + " Amount deducted for cheque book.";
-		history.add(s);
-		
-		return s;
+		if(x > bal)
+		{
+			//if account does not have sufficient balance then return empty string
+			System.out.println("\nError: Sorry insufficeint balance!!!");
+			return "";
+		}
+		else
+		{
+			bal -= x;
+			String s = dtf.format(now) + " --> " + x + " Amount deducted for cheque book.";
+			history.add(s);
+			return s;
+		}	
 	}
 	
 	//method to recharge your fastag balance
 	public String rechargeFastag(double x)
 	{
-		bal -= x;
+		if(x > bal)
+		{
+			//if account does not have sufficient balance then return empty string
+			System.out.println("\nError: Sorry insufficeint balance!!!");
+			return "";
+		}
+		else
+		{
+			bal -= x;
+
+			String s = dtf.format(now) + " --> " + x + " Amount deducted for recharge of fastag.";
+			history.add(s);
+			return s;
+		}
 		
-		String s = dtf.format(now) + " --> " + x + " Amount deducted for recharge of fastag.";
-		history.add(s);
-		return s;
 	}
 	
 	

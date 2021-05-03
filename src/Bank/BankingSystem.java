@@ -29,6 +29,7 @@ public class BankingSystem extends Customer
 		boolean flag = true;
 		while(flag)
 		{
+			
 			 System.out.println("---------------------------------------------------------------------------------MAIN MENU------------------------------------------------------------------------------------------------ ");
 		     System.out.println("\n(1) CREATE NEW ACCOUNT\n");
 		     System.out.println("(2) LOGIN\n");
@@ -62,7 +63,7 @@ public class BankingSystem extends Customer
 	
 	
 	public void Login()
-	{
+	{ 
 		System.out.println("\n----------------------------------------------------------------------------------------------------------------------------");
 		System.out.println("----------------------------------------------------------------------------------------------------------------------------\n");
 		
@@ -139,7 +140,7 @@ public class BankingSystem extends Customer
 						        	break;
 						        
 						        case 5:
-						        	
+						    		System.out.println("************************************************************************************************************************************************\n");
 						        	System.out.print("Enter Account Number of the transferee :  "); 
 						        	int a2 = sc.nextInt();
 						        	System.out.print("\nEnter Amount to be transfered : "); 
@@ -165,22 +166,25 @@ public class BankingSystem extends Customer
 						        		
 						        	}
 						        	
-						        	
+						    		System.out.println("\n************************************************************************************************************************************************\n");
 						        	break;
 						        
 						        case 6:
-						        	System.out.print("\nEnter Cheque Book price : ");
+						    		System.out.println("************************************************************************************************************************************************\n");
+						        	System.out.print("Enter Cheque Book price : ");
 						        	double cb = sc.nextDouble();
 						        	c.ChequeBook(cb);
-						        	System.out.println();
+						    		System.out.println("\n************************************************************************************************************************************************\n");
 						        	break;
 						        	
 						        case 7:
 						        	//to do
-						        	System.out.print("\nEnter Recharge amount : ");
+						    		System.out.println("************************************************************************************************************************************************\n");
+						        	System.out.print("Enter Recharge amount : ");
 						        	double r = sc.nextDouble();
 						        	c.RechargeFastag(r);
 						        	System.out.println();
+						    		System.out.println("\n************************************************************************************************************************************************\n");
 						        	break;
 						        	
 						        case 8:
@@ -224,21 +228,21 @@ public class BankingSystem extends Customer
 		
 		
 		try {
-			File file = new File(FileLoc + c.getAccNo() + ".txt");
-			File fbal = new File(FileLoc + c.getAccNo() + "_bal.txt");
-			boolean flag = file.createNewFile();	
-			boolean Bflag = fbal.createNewFile();
-			if(flag == false || Bflag == false)
-			{
-				System.out.println("flag false, file not created");
-			}
-			fw = new FileWriter(FileLoc + c.getAccNo() + ".txt",true);
-			String cus = c.getAccNo() + "," + c.getAccType() + "," + c.getName().trim() + "," + c.getAge() + "," + c.getGender().trim() + "," + c.getMno().trim() + "," + c.getPass().trim() + "\n"; 
-			fw.write(cus);
-			
-			bfw = new FileWriter(FileLoc + c.getAccNo() + "_bal.txt");
-			bfw.write("0.0");
-			bfw.close();
+				File file = new File(FileLoc + c.getAccNo() + ".txt");
+				File fbal = new File(FileLoc + c.getAccNo() + "_bal.txt");
+				boolean flag = file.createNewFile();	
+				boolean Bflag = fbal.createNewFile();
+				if(flag == false || Bflag == false)
+				{
+					System.out.println("flag false, file not created");
+				}
+				fw = new FileWriter(FileLoc + c.getAccNo() + ".txt",true);
+				String cus = c.getAccNo() + "," + c.getAccType() + "," + c.getName().trim() + "," + c.getAge() + "," + c.getGender().trim() + "," + c.getMno().trim() + "," + c.getPass().trim() + "\n"; 
+				fw.write(cus);
+				
+				bfw = new FileWriter(FileLoc + c.getAccNo() + "_bal.txt");
+				bfw.write("0.0");
+				bfw.close();
 			
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -328,8 +332,13 @@ public class BankingSystem extends Customer
 	
 	public static void main(String args[])
 	{
-		BankingSystem BB = new BankingSystem();
 		
+		
+		BankingSystem BB = new BankingSystem();
+		//System.out.println("*****************************************************************************************************************************************************************************************************************************************");
+		System.out.println("******************************************************************************* CJP PROJECT ********************************************************************************************************************************************\n");
+		//System.out.println("*****************************************************************************************************************************************************************************************************************************************\n");
+							
 		BB.LoadCustomer();
 		BB.Start();
 	}
